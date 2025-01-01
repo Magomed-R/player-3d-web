@@ -4,13 +4,16 @@ import { controls } from './controls'
 const info = document.querySelector('.info')
 const canvas = document.querySelector('canvas')!
 
-const { innerWidth: width, innerHeight: height } = window
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight
+}
 
 const renderer = new t.WebGLRenderer({ canvas })
 const scene = new t.Scene()
-export const camera = new t.PerspectiveCamera(100, width / height, 0.1, 1000)
+export const camera = new t.PerspectiveCamera(100, sizes.width / sizes.height, 0.1, 1000)
 
-renderer.setSize(width, height)
+renderer.setSize(sizes.width, sizes.height)
 
 const landGeometryRaw = new t.BoxGeometry(10, 2, 10)
 const vertGeometryRaw = new t.BoxGeometry(10, 10, 2)
@@ -61,3 +64,13 @@ if (info) {
     </div>
   `
 }
+
+window.addEventListener('resize', () => {
+  ;(sizes.width = window.innerWidth), (sizes.height = window.innerHeight)
+
+  camera.aspect = sizes.width / sizes.height
+  camera.updateProjectionMatrix()
+
+  renderer.setSize(sizes.width, sizes.height)
+  renderer.render(scene, camera)
+})

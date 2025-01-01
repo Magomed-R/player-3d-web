@@ -67,12 +67,10 @@ document.addEventListener('keyup', (event) => {
 document.addEventListener('mousemove', (event) => {
   const { movementX, movementY } = event
   const { rotation, cursor } = controls
-  const xAngle = Math.sin(rotation.y + 1.5)
-  const zAngle = Math.cos(rotation.y)
+  // const xAngle = Math.sin(rotation.y + 1.5)
 
   if (cursor.active) {
-    rotation.x += -movementY * 0.001 * xAngle
-    rotation.z += -movementY * 0.001 * zAngle
+    // rotation.x += -movementY * 0.001 * xAngle
     rotation.y += -movementX * 0.001
   }
 })
